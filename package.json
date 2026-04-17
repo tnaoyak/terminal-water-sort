@@ -1,6 +1,6 @@
 {
   "name": "terminal-water-sort",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI water sort puzzle for terminal",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
