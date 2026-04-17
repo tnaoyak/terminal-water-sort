@@ -16,31 +16,18 @@ Terminal Water Sort is a command-line water sort puzzle game.
 
 ## Requirements
 - Node.js 20+
-- npm
 
-## Install
+## Quick Start
 
-### Local development
+### Run instantly (recommended)
 ```bash
-npm install
+npx terminal-water-sort
 ```
 
-### Global install (after npm publish)
+### Install as a command
 ```bash
 npm install -g terminal-water-sort
-```
-
-## Run
-
-### Development mode
-```bash
-npm run dev
-```
-
-### Build and run
-```bash
-npm run build
-npm run start
+terminal-water-sort
 ```
 
 ## How to play
@@ -59,11 +46,6 @@ npm run start
 - `n` start a new random round
 - `help` show command list
 - `q` quit game
-
-## Test
-```bash
-npm run test
-```
 
 ## License
 MIT License. See `LICENSE`.

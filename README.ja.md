@@ -16,31 +16,18 @@ Terminal Water Sort は、ターミナル上で遊べるウォーターソート
 
 ## 動作環境
 - Node.js 20 以上
-- npm
 
-## インストール
+## クイックスタート
 
-### ローカル開発
+### 今すぐ実行（推奨）
 ```bash
-npm install
+npx terminal-water-sort
 ```
 
-### npm公開後のグローバルインストール
+### コマンドとしてインストール
 ```bash
 npm install -g terminal-water-sort
-```
-
-## 実行方法
-
-### 開発モード
-```bash
-npm run dev
-```
-
-### ビルドして実行
-```bash
-npm run build
-npm run start
+terminal-water-sort
 ```
 
 ## 遊び方
@@ -59,11 +46,6 @@ npm run start
 - `n` 新しいランダムラウンドを開始
 - `help` コマンド一覧を表示
 - `q` ゲームを終了
-
-## テスト
-```bash
-npm run test
-```
 
 ## ライセンス
 MIT License。詳細は `LICENSE` を参照してください。
