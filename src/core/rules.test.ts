@@ -26,7 +26,7 @@ describe("rules", () => {
     const result = validateMove(state, { from: 0, to: 1 });
 
     expect(result.ok).toBe(false);
-    expect(result.reason).toContain("異なる色");
+    expect(result.reason).toContain("match");
   });
 
   it("移動先の空き容量までしか移動しない", () => {

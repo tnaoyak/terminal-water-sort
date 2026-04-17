@@ -1,6 +1,7 @@
 export const CAPACITY = 4;
 export const COLOR_SET = ["R", "G", "B", "Y"] as const;
 export const BOTTLE_COUNT = 10;
+export const COLOR_COPIES = 2;
 
 export type Color = (typeof COLOR_SET)[number];
 export type Bottle = Color[];

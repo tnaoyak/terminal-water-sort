@@ -9,7 +9,7 @@ describe("generateRandomStage", () => {
     expect(stage.bottles.length).toBe(10);
   });
 
-  it("各色が容量分だけ含まれ、容量超過がない", () => {
+  it("各色が2本分含まれ、容量超過がない", () => {
     const stage = generateRandomStage();
     const all = stage.bottles.flat();
 
@@ -18,10 +18,19 @@ describe("generateRandomStage", () => {
       return acc;
     }, {});
 
-    expect(counts.R).toBe(4);
-    expect(counts.G).toBe(4);
-    expect(counts.B).toBe(4);
-    expect(counts.Y).toBe(4);
+    expect(counts.R).toBe(8);
+    expect(counts.G).toBe(8);
+    expect(counts.B).toBe(8);
+    expect(counts.Y).toBe(8);
     expect(stage.bottles.every((bottle) => bottle.length <= stage.capacity)).toBe(true);
+  });
+
+  it("開始時に8本が満杯で、2本が空になる", () => {
+    const stage = generateRandomStage();
+    const filled = stage.bottles.filter((bottle) => bottle.length === stage.capacity).length;
+    const empty = stage.bottles.filter((bottle) => bottle.length === 0).length;
+
+    expect(filled).toBe(8);
+    expect(empty).toBe(2);
   });
 });

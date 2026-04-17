@@ -11,11 +11,11 @@ function helpText(): string {
   return [
     "",
     "Commands",
-    "  <from> <to> : 例 1 2",
-    "  r           : 現在盤面をリスタート",
-    "  n           : 新しいランダム盤面を開始",
-    "  help        : ヘルプ表示",
-    "  q           : 終了",
+    "  <from> <to> : move liquid (example: 1 2)",
+    "  r           : restart current round",
+    "  n           : start a new random round",
+    "  help        : show this help",
+    "  q           : quit game",
     "",
   ].join("\n");
 }
@@ -24,7 +24,8 @@ export async function runGame(): Promise<void> {
   const rl = createInterface({ input, output });
   let state: GameState = generateRandomStage();
   let initialState: GameState = cloneState(state);
-  let message = "開始します。'help' でコマンドを表示できます。";
+  let message = "Game started. Type 'help' for commands.";
+  let isRoundCleared = false;
 
   try {
     // eslint-disable-next-line no-constant-condition
@@ -39,7 +40,7 @@ export async function runGame(): Promise<void> {
       const parsed = parseCommand(answer);
 
       if (parsed.type === "quit") {
-        output.write("終了します。\n");
+        output.write("Goodbye.\n");
         break;
       }
 
@@ -48,16 +49,29 @@ export async function runGame(): Promise<void> {
         continue;
       }
 
+      if (isRoundCleared) {
+        if (parsed.type === "new") {
+          state = generateRandomStage();
+          initialState = cloneState(state);
+          isRoundCleared = false;
+          message = "New round started.";
+          continue;
+        }
+
+        message = "Round cleared. Press 'n' for next round or 'q' to quit.";
+        continue;
+      }
+
       if (parsed.type === "restart") {
         state = cloneState(initialState);
-        message = "現在の盤面をリスタートしました。";
+        message = "Round restarted.";
         continue;
       }
 
       if (parsed.type === "new") {
         state = generateRandomStage();
         initialState = cloneState(state);
-        message = "新しいランダム盤面を生成しました。";
+        message = "New round started.";
         continue;
       }
 
@@ -68,16 +82,15 @@ export async function runGame(): Promise<void> {
 
       const result = applyMove(state, { from: parsed.from, to: parsed.to });
       if (!result.ok) {
-        message = result.reason ?? "その操作はできません。";
+        message = result.reason ?? "That move is not allowed.";
         continue;
       }
 
-      message = `${parsed.from + 1} -> ${parsed.to + 1} に ${result.amount} 層を移動しました。`;
+      message = `Moved ${result.amount} layer(s): ${parsed.from + 1} -> ${parsed.to + 1}.`;
 
       if (isWin(state)) {
-        output.write(`${renderBoard(state)}\n`);
-        output.write("クリアです。おめでとうございます。\n");
-        break;
+        isRoundCleared = true;
+        message = "Cleared! Press 'n' for next round or 'q' to quit.";
       }
     }
   } finally {

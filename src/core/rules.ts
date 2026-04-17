@@ -35,7 +35,7 @@ function countContiguousTopColor(bottle: Bottle): number {
 export function validateMove(state: GameState, move: Move): MoveValidation {
   const { from, to } = move;
   if (from === to) {
-    return { ok: false, reason: "移動元と移動先が同じです。" };
+    return { ok: false, reason: "Source and destination are the same." };
   }
 
   if (
@@ -44,30 +44,30 @@ export function validateMove(state: GameState, move: Move): MoveValidation {
     from >= state.bottles.length ||
     to >= state.bottles.length
   ) {
-    return { ok: false, reason: "ボトル番号が範囲外です。" };
+    return { ok: false, reason: "Bottle index is out of range." };
   }
 
   const fromBottle = state.bottles[from]!;
   const toBottle = state.bottles[to]!;
 
   if (fromBottle.length === 0) {
-    return { ok: false, reason: "移動元ボトルが空です。" };
+    return { ok: false, reason: "Source bottle is empty." };
   }
 
   const freeSlots = state.capacity - toBottle.length;
   if (freeSlots <= 0) {
-    return { ok: false, reason: "移動先ボトルに空きがありません。" };
+    return { ok: false, reason: "Destination bottle is full." };
   }
 
   const sourceTop = topColor(fromBottle);
   const destinationTop = topColor(toBottle);
   if (destinationTop && destinationTop !== sourceTop) {
-    return { ok: false, reason: "移動先の最上層が異なる色です。" };
+    return { ok: false, reason: "Top colors do not match." };
   }
 
   const amount = Math.min(countContiguousTopColor(fromBottle), freeSlots);
   if (amount <= 0) {
-    return { ok: false, reason: "注ぎ替え可能な層がありません。" };
+    return { ok: false, reason: "No movable layers found." };
   }
 
   return { ok: true, amount };

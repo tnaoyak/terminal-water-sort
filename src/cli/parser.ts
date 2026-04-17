@@ -11,7 +11,7 @@ export function parseCommand(input: string): ParsedCommand {
   if (trimmed.length === 0) {
     return {
       type: "invalid",
-      reason: "入力が空です。例: 1 2",
+      reason: "Empty input. Example: 1 2",
     };
   }
 
@@ -37,7 +37,7 @@ export function parseCommand(input: string): ParsedCommand {
   if (parts.length !== 2) {
     return {
       type: "invalid",
-      reason: "入力形式が不正です。例: 1 2",
+      reason: "Invalid format. Example: 1 2",
     };
   }
 
@@ -46,7 +46,7 @@ export function parseCommand(input: string): ParsedCommand {
   if (!/^\d+$/.test(fromText) || !/^\d+$/.test(toText)) {
     return {
       type: "invalid",
-      reason: "ボトル番号は正の整数で指定してください。例: 1 2",
+      reason: "Bottle numbers must be positive integers. Example: 1 2",
     };
   }
 
@@ -55,7 +55,7 @@ export function parseCommand(input: string): ParsedCommand {
   if (from <= 0 || to <= 0) {
     return {
       type: "invalid",
-      reason: "ボトル番号は1以上で指定してください。例: 1 2",
+      reason: "Bottle numbers must be 1 or greater. Example: 1 2",
     };
   }
 

@@ -1,63 +1,66 @@
 # Terminal Water Sort
 
-Terminal Water Sort は、ターミナル上で遊べるウォーターソート系パズルゲームです。
+Terminal Water Sort is a command-line water sort puzzle game.
 
-## 主な機能
-- 縦向きボトル表示（Unicode罫線）
-- ANSIカラーによる色分け表示
-- `1 2` 形式のシンプルな操作入力
-- ボトル10本構成のランダムステージ生成
-- `r` `n` `help` `q` コマンド対応
+[日本語版はこちら](./README.ja.md)
 
-## 動作環境
-- Node.js 20 以上
+## Features
+- Vertical bottle rendering with Unicode lines
+- ANSI color display with fallback text symbols
+- Simple move input in `<from> <to>` format (example: `1 2`)
+- Random rounds with 10 bottles (8 filled, 2 empty at start)
+- Continue playing after clear (`n` for next round, `q` to quit)
+
+## Requirements
+- Node.js 20+
 - npm
 
-## インストール
+## Install
 
-### ローカル開発
+### Local development
 ```bash
 npm install
 ```
 
-### npm公開後のグローバルインストール
+### Global install (after npm publish)
 ```bash
 npm install -g terminal-water-sort
 ```
 
-## 実行方法
+## Run
 
-### 開発モード
+### Development mode
 ```bash
 npm run dev
 ```
 
-### ビルドして実行
+### Build and run
 ```bash
 npm run build
 npm run start
 ```
 
-## 遊び方
-- 目的: すべてのボトルを「空」または「単色で満杯」にそろえる
-- 移動入力: `1 2` は「1番ボトルから2番ボトルへ注ぐ」
-- 注ぎ替え可能条件:
-  - 移動元が空でない
-  - 移動先に空きがある
-  - 移動先が空、または移動先の最上層色が移動元最上層色と同じ
-- 最上層に連続する同色は、可能な範囲でまとめて移動する
+## How to play
+- Goal: every bottle must be either empty or full with one color only
+- Move input: `1 2` means pour from bottle 1 to bottle 2
+- A move is valid when:
+  - source bottle is not empty
+  - destination bottle has free space
+  - destination is empty, or top colors match
+- Continuous top layers of the same color move together as much as possible
+- After clear, the game stays open (`n` for next round, `q` to quit)
 
-## コマンド
-- `1 2` 1番から2番へ注ぐ
-- `r` 現在ステージをリスタート
-- `n` 新しいランダムステージを生成
-- `help` コマンド一覧を表示
-- `q` ゲームを終了
+## Commands
+- `1 2` pour from bottle 1 to bottle 2
+- `r` restart current round
+- `n` start a new random round
+- `help` show command list
+- `q` quit game
 
-## テスト
+## Test
 ```bash
 npm run test
 ```
 
-## ライセンス
-MIT License。詳細は `LICENSE` を参照してください。
+## License
+MIT License. See `LICENSE`.

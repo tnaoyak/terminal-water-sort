@@ -1,9 +1,17 @@
-import { BOTTLE_COUNT, CAPACITY, COLOR_SET, type Color, type GameState } from "../core/types.js";
+import {
+  BOTTLE_COUNT,
+  CAPACITY,
+  COLOR_COPIES,
+  COLOR_SET,
+  type Color,
+  type GameState,
+} from "../core/types.js";
 
 export interface StageConfig {
   readonly capacity?: number;
   readonly bottleCount?: number;
   readonly colors?: readonly Color[];
+  readonly colorCopies?: number;
 }
 
 function shuffle<T>(items: T[]): T[] {
@@ -24,28 +32,36 @@ function isSingleColorBottle(bottle: Color[]): boolean {
 export function generateRandomStage(config: StageConfig = {}): GameState {
   const capacity = config.capacity ?? CAPACITY;
   const bottleCount = config.bottleCount ?? BOTTLE_COUNT;
+  const colorCopies = config.colorCopies ?? COLOR_COPIES;
   const colors = [...(config.colors ?? COLOR_SET)];
   const effectiveColors = colors.slice(0, 4);
+  const filledBottleCount = effectiveColors.length * colorCopies;
 
-  if (bottleCount < effectiveColors.length) {
-    throw new Error("ボトル数が色数より少ないため盤面を生成できません。");
+  if (colorCopies <= 0) {
+    throw new Error("Color copies must be greater than zero.");
+  }
+
+  if (bottleCount < filledBottleCount) {
+    throw new Error("Bottle count is too small for the requested liquid amount.");
   }
 
   let shuffled: Color[] = [];
   let attempts = 0;
   do {
-    const units = effectiveColors.flatMap((color) => Array.from({ length: capacity }, () => color));
+    const units = effectiveColors.flatMap((color) =>
+      Array.from({ length: capacity * colorCopies }, () => color),
+    );
     shuffled = shuffle(units);
     attempts += 1;
   } while (
     attempts < 20 &&
-    Array.from({ length: effectiveColors.length }, (_, index) =>
+    Array.from({ length: filledBottleCount }, (_, index) =>
       shuffled.slice(index * capacity, (index + 1) * capacity),
     ).every(isSingleColorBottle)
   );
 
   const bottles: Color[][] = Array.from({ length: bottleCount }, () => []);
-  for (let bottleIndex = 0; bottleIndex < effectiveColors.length; bottleIndex += 1) {
+  for (let bottleIndex = 0; bottleIndex < filledBottleCount; bottleIndex += 1) {
     bottles[bottleIndex] = shuffled.slice(bottleIndex * capacity, (bottleIndex + 1) * capacity);
   }
 
