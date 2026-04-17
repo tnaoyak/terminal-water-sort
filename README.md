@@ -4,6 +4,9 @@ Terminal Water Sort is a command-line water sort puzzle game.
 
 [日本語版はこちら](./README.ja.md)
 
+## Screenshot
+![Terminal Water Sort gameplay](https://raw.githubusercontent.com/tnaoyak/terminal-water-sort/main/assets/gameplay-screenshot.png)
+
 ## Features
 - Vertical bottle rendering with Unicode lines
 - ANSI color display with fallback text symbols

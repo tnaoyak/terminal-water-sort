@@ -4,6 +4,9 @@ Terminal Water Sort は、ターミナル上で遊べるウォーターソート
 
 [English version](./README.md)
 
+## スクリーンショット
+![Terminal Water Sort gameplay](https://raw.githubusercontent.com/tnaoyak/terminal-water-sort/main/assets/gameplay-screenshot.png)
+
 ## 主な機能
 - 縦向きボトル表示（Unicode罫線）
 - ANSIカラー表示（非対応環境では記号表示にフォールバック）
